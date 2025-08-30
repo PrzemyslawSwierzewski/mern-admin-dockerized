@@ -1,0 +1,29 @@
+services:
+  mongo:
+    image: mongo:5
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: .
+    env_file:
+      - .variables.env
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://localhost:4000/api/
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:

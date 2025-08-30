@@ -1,88 +1,97 @@
-## App Built on top of this Starter project [IDURAR ERP/CRM](https://github.com/idurar/erp-crm)
-IDURAR is Open Source ERP/CRM (Invoice / Inventory / Accounting / HR) Based on Mern Stack (Node.js / Express.js / MongoDb / React.js ) with Ant Design (AntD) and Redux
-GitHub Repository : [https://github.com/idurar/idurar-erp-crm](https://github.com/idurar/idurar-erp-crm)
-<br/>
+# Dockerized Web App Learning Project
 
-**⭐️ Demo Open Source Version** : [https://opensource.idurarapp.com](https://opensource.idurarapp.com)
-<br/>
-**🚀 Cloud Entreprise Version** : [https://www.idurarapp.com](https://www.idurarapp.com)
-<br/>
-#
-[![
-IDURAR is Open Source ERP/CRM (Invoice / Inventory / Accounting / HR) Based on Mern Stack (Node.js / Express.js / MongoDb / React.js )](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ja242ld9m9z1c6ia7lu5.png)](https://github.com/idurar/idurar-erp-crm)
+> ⚠️ **Disclaimer:** This project is a fork of a random website found on the internet. It is used purely for learning purposes to practice Dockerizing a multi-service web application.
 
+## Overview
 
+This project demonstrates a **multi-container web application** using:
 
+- **Frontend:** React (Create React App)  
+- **Backend:** Node.js / Express  
+- **Database:** MongoDB  
 
-# Starter Mern Antd Admin App , MERN Admin dashboard ,Antd Admin Template free
+The goal of this project is **not to produce a full-featured product**, but to explore Docker concepts such as:
 
-```
-Don't forget please to ⭐ this repo if you like this Starter Antd Admin!
-```
+- Multi-stage builds for React frontend  
+- Environment variable management (`.env` files and Docker build args)  
+- Docker Compose orchestration of multiple services  
+- Container networking and service-to-service communication  
+- Persisting database data using Docker volumes  
 
-## Our Sponsors
+---
 
-[![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=4ead8370b905&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+## Services
 
+| Service  | Description |
+|----------|-------------|
+| `frontend` | React app built with CRA and served via Nginx |
+| `backend`  | Node.js / Express REST API server |
+| `mongo`    | MongoDB database for backend data storage |
 
-![starter-antd-admin-crud-auth-mern-crud-auth](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/opp4yj177dizyaosah0o.png)
+---
 
+## Getting Started
 
-## Starter Antd Admin (Crud & auth) Mern App (Express.js / React / Redux / MongoDB)
+### Prerequisites
 
-Starter Crm App based on mern stack (Express.js / MongoDb / React / Redux / AntD) with generic crud and auth , admin management .
+- [Docker](https://www.docker.com/get-started)  
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-**Live App Demo** : [https://www.idurarapp.com](https://www.idurarapp.com)
+---
 
+### Running the Application
 
-## Setup backend
-
-1) just create MongoDB Atlas accout database url 
-2) change this file name .variables.env.tmp to  .variables.env
-3) open  .variables.env and paste your MongoDB url here :  DATABASE=your-mongodb-url
-4) npm install
-5) npm setup
-
-## Setup frontend
-1) cd frontend 
-2) npm install
-3) change api config to loaclhost in this : src/frontend/src/config/serverApiConfig.js
- 
-
-## start server
-1) npm start
-
-## start react app
-1) cd frontend
-2) npm start
+1. Clone the repository:
 
 ```
-
-## App Features :
-
-### Backend :
-
-* The backend is built with node.js , [express.js Framework](https://expressjs.com/) ,and MongoDb Database
-* Generic Crud Api (Create / Read / Update / Delete)
-* Admin (User) Management Api
-* Auth by Jwt json web token
-
-### Frontend :
-
-* The Frontend is built with React.js , [Ant Design (Antd)](https://ant.design/), and Redux , Redux-thunk.
-* Generic Crud Component (Module) (Create / Read / Update / Delete)
-* Admin (User) Management Module
-* Auth Component Login / Logout
-* Private Route and Public Route
-* Not Found Page
-* Beautiful UI Dashboard
-
-#
+git clone <repository-url>
+cd <repository-folder>
 ```
 
-<br/>
+2. Build and start all services with Docker Compose:
 
-**⭐️ Demo Open Source Version** : [https://opensource.idurarapp.com](https://opensource.idurarapp.com)
-<br/>
-**🚀 Cloud Entreprise Version** : [https://www.idurarapp.com](https://www.idurarapp.com)
-<br/>
+```
+docker-compose up --build
+```
+
+3. Access the frontend in your browser at:
+
+```
+http://localhost:3000
+```
+
+4. The backend API is available at:
+
+```
+http://localhost:4000/api/
+```
+
+> The frontend calls the backend using the `REACT_APP_API_URL` environment variable embedded during the build.
+
+---
+
+### Environment Variables
+
+- **Backend:** `.variables.env` file contains secrets, database URI, JWT keys, etc.  
+- **Frontend:** Build-time environment variables (e.g., `REACT_APP_API_URL`) are passed via Docker build args.
+
+---
+
+### Notes
+
+- MongoDB data is persisted using a Docker volume: `mongo_data`.  
+- Ports are mapped as follows:
+  - Frontend: `host 3000 → container 80`  
+  - Backend: `host 4000 → container 4000`  
+  - MongoDB: `host 27017 → container 27017` (optional)  
+
+- **Important:** This project is intended for learning Docker only. It is **not production-ready**.
+
+---
+
+### Improvements for Learning
+
+- Multi-stage Docker builds for smaller frontend image sizes.  
+- Use of `REACT_APP_*` variables for environment-specific configuration.  
+
+---

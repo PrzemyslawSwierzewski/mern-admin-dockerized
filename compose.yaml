@@ -1,9 +1,6 @@
 services:
   mongo:
     image: mongo:5
-    volumes:
-      - mongo_data:/data/db
-
   backend:
     build:
       context: .
